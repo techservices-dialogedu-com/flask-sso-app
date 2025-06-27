@@ -12,3 +12,6 @@ def login():
 
     saml_response = build_saml_response(email, first_name, last_name, destination)
     return render_template("response.html", saml_response=saml_response, relay_state=request.args.get("RelayState", ""))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
