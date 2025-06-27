@@ -24,10 +24,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: dialogedu-sso
-        slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-        package: .
+- name: Login to Azure
+  uses: azure/login@v2
+  with:
+    client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+- name: Deploy to Azure Web App
+  uses: azure/webapps-deploy@v2
+  with:
+    app-name: dialogedu-sso
+    slot-name: Production
+    package: .
+
