@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from saml_utils import build_saml_response
+import os
 
 app = Flask(__name__)
 
@@ -14,4 +15,5 @@ def login():
     return render_template("response.html", saml_response=saml_response, relay_state=request.args.get("RelayState", ""))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
