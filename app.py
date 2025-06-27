@@ -15,5 +15,5 @@ def login():
     return render_template("response.html", saml_response=saml_response, relay_state=request.args.get("RelayState", ""))
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 8080))  # default 8080 just in case
     app.run(host="0.0.0.0", port=port)
