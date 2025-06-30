@@ -1,3 +1,6 @@
+import os
+print("▶︎ Running from:", os.path.abspath(__file__))
+
 from flask import Flask, request, make_response
 from signxml import XMLSigner, methods
 from lxml import etree
