@@ -6,12 +6,19 @@ app = Flask(__name__)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    email = "john.doe@dialogedu.com"
-    first_name = "John"
-    last_name = "Doe"
-    destination = "https://accounts.zohoportal.com/accounts/csamlresponse/10089904568"
-
+    email = request.args.get("email", "john.doe@dialogedu.com")
+    first_name = request.args.get("firstName", "John")
+    last_name = request.args.get("lastName", "Doe")
+    destination = request.args.get("redirect", "https://accounts.zohoportal.com/accounts/csamlresponse/10089904568")
+    
     saml_response = build_saml_response(email, first_name, last_name, destination)
+
+    print("=== SAML RESPONSE START ===")
+    print(saml_response)
+    print("RelayState:", request.args.get("RelayState", ""))
+    print("Redirect:", destination)
+    print("=== SAML RESPONSE END ===")
+
     return render_template("response.html", saml_response=saml_response, relay_state=request.args.get("RelayState", ""))
 
 if __name__ == "__main__":
